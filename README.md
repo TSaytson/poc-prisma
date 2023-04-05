@@ -1,2 +1,2 @@
-# poc-typescript
-A proof of concept of Typescript trough a CRUD API
+# POC-Prisma
+A proof of concept of Prisma trough a CRUD API with Node, Express and Typescript
