@@ -1,13 +1,4 @@
-import pg from 'pg';
+import {PrismaClient} from '@prisma/client';
 import 'dotenv/config'
 
-const { Pool } = pg;
-
-const configDatabase = {
-    connectionString: process.env.DATABASE_URL,
-    ssl: false
-};
-
-if (process.env.MODE === 'prod') configDatabase.ssl = true;
-
-export const db = new Pool(configDatabase);
+export const prisma = new PrismaClient();

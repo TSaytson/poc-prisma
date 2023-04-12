@@ -3,3 +3,7 @@ export type Customer = {
     email: string,
     password: string
 }
+
+export type CustomerEntity = Customer & {
+    id: number
+}

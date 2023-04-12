@@ -1,20 +1,26 @@
-import { db } from "../config/database.js";
-import { Customer } from "../protocols/customer.js";
-import { QueryResult } from 'pg';
+import { prisma } from "../config/database.js";
+import { Customer, CustomerEntity } from "../protocols";
 
 function insertCustomer(
     { name, email, password }: Customer) {
-    return db.query(`INSERT INTO customers 
-    (name, email, password)
-    VALUES ($1,$2,$3);`,
-        [name, email, password]);
+    
+    return prisma.customers.create({
+        data: { name, email, password }
+    });
 }
 
-async function findByEmail(email: string)   {
-    return db.query(`SELECT * FROM customers
-    WHERE email=$1;`, [email]);
-
+async function findByEmail(email: string):Promise<Customer>   {
+    return prisma.customers.findUnique({where: {email}})
 }
+
+async function upsertCustomer(customer: CustomerEntity) {
+    return prisma.customers.upsert({
+        where: { id: customer.id || 0},
+        create: customer,
+        update: customer
+    })
+}
+
 export const customersRepository = {
     insertCustomer,
     findByEmail

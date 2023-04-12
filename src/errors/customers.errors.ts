@@ -6,6 +6,6 @@ function conflictEmail() {
     }
 }
 
-export const errors = {
+export const customersErrors = {
     conflictEmail
 }

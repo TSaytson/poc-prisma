@@ -1,26 +1,39 @@
-import { Customer } from "../protocols/customer";
+import { Customer } from "../protocols";
 import { customersRepository } from "../repositories/customers.repository.js";
-import { errors } from '../errors/errorsFunctions.js'
+import { customersErrors } from '../errors/customers.errors.js'
 import bcrypt from 'bcrypt';
 
 async function signUp(
-    { name, email, password }: Customer) {
+    { name, email, password }: Customer):
+    Promise<void> {
     
-    const { rowCount: userFound } =
-        await customersRepository.findByEmail(email);
+    const userFound =
+        await customersRepository.
+            findByEmail(email);
 
     if (userFound)
-        throw errors.conflictEmail();
+        throw customersErrors.conflictEmail();
     
-    const hashedPassword = await bcrypt.hash(
+    const hashedPassword =
+        await bcrypt.hash(
         password, 10
     );
 
-    await customersRepository.insertCustomer({
+    await customersRepository.
+        insertCustomer({
         name, email, password: hashedPassword
     });
 }
 
+async function signIn(
+    { email, password }: Customer):
+    Promise<string>{
+    
+    
+    return;
+}
+
 export const customersService = {
-    signUp
+    signUp,
+    signIn
 }

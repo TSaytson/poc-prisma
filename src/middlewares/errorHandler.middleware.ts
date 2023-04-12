@@ -1,7 +1,8 @@
 import {Request, Response, NextFunction } from "express";
+import { IError } from '../protocols';
 
 export function errorHandler(
-    error: Error,
+    error: IError,
     req: Request,
     res: Response,
     next: NextFunction) {
