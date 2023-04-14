@@ -2,8 +2,8 @@ import { sessions } from "@prisma/client";
 import { prisma } from "../config/database.js";
 
 function findByUserId(customer_id: number): Promise<sessions | null>{
-    return prisma.sessions.findUnique({
-        where: { }
+    return prisma.sessions.findFirst({
+        where: {customer_id }
     })
 }
 

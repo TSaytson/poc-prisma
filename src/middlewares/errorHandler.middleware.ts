@@ -6,6 +6,7 @@ export function errorHandler(
     req: Request,
     res: Response,
     next: NextFunction) {
+    console.log(error);
     return res.status(error.status).
         send(error.message);
 }
