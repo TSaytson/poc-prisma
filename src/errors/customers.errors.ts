@@ -6,6 +6,14 @@ function conflictEmail() {
     }
 }
 
+function unprocessableEntity() {
+    return {
+        type: "Unprocessable entity",
+        message: "Could not log in",
+        status: 422
+    }
+}
 export const customersErrors = {
-    conflictEmail
+    conflictEmail,
+    unprocessableEntity
 }

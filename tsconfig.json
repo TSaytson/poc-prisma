@@ -5,6 +5,7 @@
         "module": "es2022",
         "moduleResolution": "node",
         "target": "es2017",
+        "strict": true
     },
     "ts-node": {
         "swc": false,

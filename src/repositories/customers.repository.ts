@@ -1,5 +1,6 @@
+import { customers } from "@prisma/client";
 import { prisma } from "../config/database.js";
-import { Customer, CustomerEntity } from "../protocols";
+import { Customer, CustomerEntity } from "../schemas";
 
 function insertCustomer(
     { name, email, password }: Customer) {
@@ -9,10 +10,19 @@ function insertCustomer(
     });
 }
 
-async function findByEmail(email: string):Promise<Customer>   {
-    return prisma.customers.findUnique({where: {email}})
+async function findByEmail(email: string):
+    Promise<customers | null>  {
+    return prisma.customers.findUnique({
+        where: { email }
+    })
 }
 
+async function findById(id: number):
+    Promise<customers | null>{
+    return prisma.customers.findUnique({
+        where: {id}
+    })
+    }
 async function upsertCustomer(customer: CustomerEntity) {
     return prisma.customers.upsert({
         where: { id: customer.id || 0},
@@ -23,5 +33,6 @@ async function upsertCustomer(customer: CustomerEntity) {
 
 export const customersRepository = {
     insertCustomer,
-    findByEmail
+    findByEmail,
+    findById
 }
